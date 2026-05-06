@@ -1,0 +1,45 @@
+package com.product.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.product.dtos.AddUserDto;
+import com.product.dtos.ApiResponse;
+import com.product.dtos.EmailOtpVerifyDto;
+import com.product.service.UserService;
+
+@RestController
+//@CrossOrigin("*")
+@RequestMapping("/api/v2/user")
+public class UserController {
+	@Autowired
+	private UserService userService;
+
+	@PostMapping("/register")
+	public ResponseEntity<ApiResponse> initiateUserVerificationController(@RequestBody AddUserDto dto) {
+		String serviceResponse = userService.initiateUserVerificationService(dto);
+		ApiResponse apiResponse = ApiResponse.builder().serviceName("PRODUCT_SERVICE").status(true).type("string")
+				.payload(serviceResponse).build();
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+	}
+
+	@PostMapping("/verification")
+	public ResponseEntity<ApiResponse> finalUserVerificationController(@RequestBody EmailOtpVerifyDto dto) {
+		String serviceResponse = userService.finalUserVerificationService(dto);
+		ApiResponse apiResponse = ApiResponse.builder().serviceName("PRODUCT_SERVICE").status(true).type("string")
+				.payload(serviceResponse).build();
+
+		return ResponseEntity.ok(apiResponse);
+	}
+
+	@GetMapping("/demo")
+	public String demoReq() {
+		return "server is running";
+	}
+}

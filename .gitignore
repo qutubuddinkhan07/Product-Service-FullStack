@@ -1,0 +1,46 @@
+# ===============================
+# 🔹 Backend (Spring Boot)
+# ===============================
+PRODUCT_SERVICE/target/
+PRODUCT_SERVICE/*.log
+HELP.md
+
+# Maven Wrapper
+PRODUCT_SERVICE/.mvn/wrapper/maven-wrapper.jar
+
+# STS / Eclipse
+PRODUCT_SERVICE/.apt_generated
+PRODUCT_SERVICE/.classpath
+PRODUCT_SERVICE/.factorypath
+PRODUCT_SERVICE/.project
+PRODUCT_SERVICE/.settings/
+PRODUCT_SERVICE/.springBeans
+PRODUCT_SERVICE/.sts4-cache
+
+# IntelliJ
+PRODUCT_SERVICE/.idea
+PRODUCT_SERVICE/*.iml
+PRODUCT_SERVICE/*.ipr
+PRODUCT_SERVICE/*.iws
+
+# NetBeans
+PRODUCT_SERVICE/nbproject/private/
+PRODUCT_SERVICE/nbbuild/
+PRODUCT_SERVICE/dist/
+PRODUCT_SERVICE/nbdist/
+PRODUCT_SERVICE/.nb-gradle/
+PRODUCT_SERVICE/build/
+
+# ===============================
+# 🔹 Frontend (React / Vite)
+# ===============================
+product-service-frontend/node_modules/
+product-service-frontend/build/
+product-service-frontend/dist/
+
+# ===============================
+# 🔹 Common (VERY IMPORTANT)
+# ===============================
+.env
+.vscode/
+.DS_Store
