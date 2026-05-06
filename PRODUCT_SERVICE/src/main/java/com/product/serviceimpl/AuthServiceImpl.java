@@ -53,7 +53,6 @@ public class AuthServiceImpl implements AuthService {
 		}
 		blockedJwt.add(jwt);
 		return "Log out successful";
-
 	}
 
 }

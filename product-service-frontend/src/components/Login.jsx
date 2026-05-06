@@ -16,9 +16,14 @@ export default function Login() {
     // const result = await axios.post(
     //   `http://localhost:8080/api/v3/auth/login?username=${form.username}&password=${form.password}`,
     // );
-    const url =
-      "https://bb2e-2401-4900-8fd2-f1a8-2ddd-c976-5ab7-94c.ngrok-free.app";
-    // const url = "http://localhost:8080";
+
+    // ngrok url
+    // const url =
+    //   "https://bb2e-2401-4900-8fd2-f1a8-2ddd-c976-5ab7-94c.ngrok-free.app";
+
+    // localhost URL
+    const url = "http://localhost:8080";
+
     const result = await axios.post(`${url}/api/v3/auth/login`, {
       username: form.username,
       password: form.password,
