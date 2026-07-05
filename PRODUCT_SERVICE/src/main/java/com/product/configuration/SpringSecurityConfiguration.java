@@ -23,8 +23,9 @@ public class SpringSecurityConfiguration {
 	public SecurityFilterChain configureFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/v3/auth/**").permitAll()
-						.requestMatchers("/api/v2/user/**").permitAll().requestMatchers("/api/v1.0/product/**")
-						.hasAuthority("ROLE_ADMIN").anyRequest().authenticated())
+						.requestMatchers("/api/v2/user/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+						.requestMatchers("/api/v1.0/product/**").hasAuthority("ROLE_ADMIN").anyRequest()
+						.authenticated())
 				.formLogin(form -> form.disable()).httpBasic(basic -> basic.disable());
 
 		// 🔥 REGISTER FILTER HERE
@@ -42,7 +43,7 @@ public class SpringSecurityConfiguration {
 		// config.setAllowedOriginPatterns(List.of("*")); // ✅ your frontend
 
 		config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://localhost:5173",
-				"https://*.ngrok-free.app", "https://*.ngrok.io", "https://*.netlify.app/"));
+				"https://*.ngrok-free.app", "https://*.ngrok.io", "https://*.netlify.app"));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
