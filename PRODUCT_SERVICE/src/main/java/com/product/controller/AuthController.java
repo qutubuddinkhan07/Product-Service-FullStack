@@ -11,6 +11,7 @@ import com.product.dtos.ApiResponse;
 import com.product.dtos.LoginRequest;
 import com.product.service.AuthService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -32,6 +33,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/logout")
+	@SecurityRequirement(name = "Bearer Authentication")
 	public ResponseEntity<ApiResponse> logOutController(HttpServletRequest request) {
 		String serviceResponse = authService.logOutService(request);
 		ApiResponse apiResponse = ApiResponse.builder().serviceName("AUTH_SERVICE").status(true).type("string")

@@ -24,6 +24,7 @@ import com.product.entity.Product;
 import com.product.modelmapper.ModelMapper;
 import com.product.service.ProductService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 //@CrossOrigin("*")
 @RequestMapping("/api/v1.0/product")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Bearer Authentication")
 public class ProductController {
 	private final ProductService productService;
 	private final ModelMapper modelMapper;
