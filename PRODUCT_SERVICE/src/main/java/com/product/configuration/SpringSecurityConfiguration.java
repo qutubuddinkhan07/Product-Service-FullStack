@@ -42,7 +42,7 @@ public class SpringSecurityConfiguration {
 		// config.setAllowedOriginPatterns(List.of("*")); // ✅ your frontend
 
 		config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://localhost:5173",
-				"https://*.ngrok-free.app", "https://*.ngrok.io"));
+				"https://*.ngrok-free.app", "https://*.ngrok.io", "https://*.netlify.app/"));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);

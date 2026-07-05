@@ -21,8 +21,11 @@ export default function Login() {
     // const url =
     //   "https://bb2e-2401-4900-8fd2-f1a8-2ddd-c976-5ab7-94c.ngrok-free.app";
 
+    // deployed url
+    const url = import.meta.env.VITE_API_URL;
+
     // localhost URL
-    const url = "http://localhost:8080";
+    // const url = "http://localhost:8080";
 
     const result = await axios.post(`${url}/api/v3/auth/login`, {
       username: form.username,

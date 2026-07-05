@@ -11,10 +11,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  // deployed url
+  const url = import.meta.env.VITE_API_URL;
 
   const fetch_product_details = async () => {
     try {
-      const url = "http://localhost:8080";
       const result = await axios.get(
         `${url}/api/v1.0/product/category?category=FMCG&sorting=ASC`,
         {
@@ -35,7 +36,6 @@ const Dashboard = () => {
   };
 
   const logout = async () => {
-    const url = "http://localhost:8080";
     const result = await axios.post(
       `${url}/api/v3/auth/logout`,
       null, // no request body needed
