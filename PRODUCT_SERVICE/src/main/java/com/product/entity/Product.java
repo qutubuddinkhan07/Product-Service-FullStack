@@ -31,6 +31,7 @@ public class Product {
 	private Integer stock;
 	private BigDecimal price;
 
+	@Builder.Default
 	private Boolean isActive = true;
 
 	private LocalDateTime createdAt;
