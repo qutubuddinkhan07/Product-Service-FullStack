@@ -89,7 +89,7 @@ public class JWTFilter extends OncePerRequestFilter {
 		String url = request.getRequestURI();
 		String method = request.getMethod();
 		return "OPTIONS".equalsIgnoreCase(method) || url.startsWith("/api/v3/auth") || url.startsWith("/api/v2/user")
-				|| url.startsWith("/swagger-ui") || url.equals("/swagger-ui.html");
+				|| url.startsWith("/swagger-ui") || url.equals("/swagger-ui.html") || url.startsWith("/v3/api-docs");
 	}
 
 }

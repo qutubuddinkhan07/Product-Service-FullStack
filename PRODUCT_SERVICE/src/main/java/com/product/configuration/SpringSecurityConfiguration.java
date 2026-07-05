@@ -22,9 +22,10 @@ public class SpringSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain configureFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/v3/auth/**").permitAll()
-						.requestMatchers("/api/v2/user/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-						.requestMatchers("/api/v1.0/product/**").hasAuthority("ROLE_ADMIN").anyRequest()
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/v3/auth/**", "/api/v2/user/**", "/swagger-ui/**", "/swagger-ui.html",
+								"/v3/api-docs/**")
+						.permitAll().requestMatchers("/api/v1.0/product/**").hasAuthority("ROLE_ADMIN").anyRequest()
 						.authenticated())
 				.formLogin(form -> form.disable()).httpBasic(basic -> basic.disable());
 
