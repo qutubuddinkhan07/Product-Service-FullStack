@@ -64,29 +64,14 @@ const Home = () => {
       {/* header */}
       <header className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12">
         <div className="flex items-center gap-2.5">
-          <svg
-            width="26"
-            height="26"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="text-amber-400"
-          >
-            <path
-              d="M3 7L12 3L21 7V17L12 21L3 17V7Z"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M3 7L12 11L21 7"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinejoin="round"
-            />
-            <path d="M12 11V21" stroke="currentColor" strokeWidth="1.6" />
-          </svg>
+          <img
+            src="/inventory.svg"
+            alt="Inventory Management & Auth System"
+            height={30}
+            width={30}
+          />
           <span className="font-display text-lg font-bold tracking-wide text-[#E7E9EC]">
-            STOCKLINE
+            Inventory Management & Auth System
           </span>
         </div>
         <NavLink
