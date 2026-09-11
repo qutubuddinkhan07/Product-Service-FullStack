@@ -6,6 +6,9 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
 
+  // to track button loading
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,19 +30,28 @@ export default function Login() {
     // localhost URL
     // const url = "http://localhost:8080";
 
-    const result = await axios.post(`${url}/api/v3/auth/login`, {
-      username: form.username,
-      password: form.password,
-    });
-    const { data } = result;
-    console.log(data.payload);
-    localStorage.setItem("jwt_token", JSON.stringify(data.payload));
-    navigate("/dashboard");
+    try {
+      const result = await axios.post(`${url}/api/v3/auth/login`, {
+        username: form.username,
+        password: form.password,
+      });
+      const { data } = result;
+      console.log(data.payload);
+      localStorage.setItem("jwt_token", JSON.stringify(data.payload));
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login failed: ", error);
+    } finally {
+      setIsLoading(false); // always to turn off loading
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login submitted:", form);
+
+    setIsLoading(true); // start loading right away
+
     // Add your auth logic here
     fetch_details();
   };
@@ -114,9 +126,36 @@ export default function Login() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:opacity-80 transition-opacity"
+            className="w-full py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            disabled={isLoading}
           >
-            Sign in
+            {isLoading ? (
+              <>
+                <svg
+                  className="animate-spin h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  />
+                </svg>
+                Signing in...
+              </>
+            ) : (
+              "Sign in"
+            )}
           </button>
         </form>
 
