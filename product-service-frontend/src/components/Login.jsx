@@ -1,59 +1,51 @@
-import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import axiosInstance from "./axiosInstance";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
-
-  // to track button loading
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (error) setError("");
   };
 
-  const fetch_details = async () => {
-    // const result = await axios.post(
-    //   `http://localhost:8080/api/v3/auth/login?username=${form.username}&password=${form.password}`,
-    // );
-
-    // ngrok url
-    // const url =
-    //   "https://bb2e-2401-4900-8fd2-f1a8-2ddd-c976-5ab7-94c.ngrok-free.app";
-
-    // deployed url
-    const url = import.meta.env.VITE_API_URL;
-
-    // localhost URL
-    // const url = "http://localhost:8080";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
-      const result = await axios.post(`${url}/api/v3/auth/login`, {
+      const result = await axiosInstance.post("/api/v3/auth/login", {
         username: form.username,
         password: form.password,
       });
-      const { data } = result;
-      console.log(data.payload);
-      localStorage.setItem("jwt_token", JSON.stringify(data.payload));
+
+      // Adjust this if your backend nests the token differently,
+      // e.g. result.data.payload.token instead of result.data.payload
+      const token = result.data?.payload;
+      if (!token) {
+        throw new Error("No token returned from server");
+      }
+
+      // Stored as a plain string so axiosInstance can read it straight
+      // back out for every other request without needing to JSON.parse it.
+      localStorage.setItem("jwt_token", token);
       navigate("/dashboard");
-    } catch (error) {
-      console.error("Login failed: ", error);
+    } catch (err) {
+      console.error("Login failed: ", err);
+      setError(
+        err.response?.data?.message ||
+          "Invalid username or password. Please try again.",
+      );
     } finally {
-      setIsLoading(false); // always to turn off loading
+      setIsLoading(false);
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login submitted:", form);
-
-    setIsLoading(true); // start loading right away
-
-    // Add your auth logic here
-    fetch_details();
   };
 
   return (
@@ -70,6 +62,12 @@ export default function Login() {
           Welcome back
         </h1>
         <p className="text-sm text-neutral-400 mb-8">Sign in to your account</p>
+
+        {error && (
+          <div className="mb-5 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-3 py-2.5">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Username */}
@@ -191,9 +189,12 @@ export default function Login() {
 
         <p className="text-center text-sm text-neutral-400 mt-5">
           Don't have an account?{" "}
-          <a href="#" className="text-neutral-900 font-medium hover:underline">
+          <Link
+            to="/register"
+            className="text-neutral-900 font-medium hover:underline"
+          >
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

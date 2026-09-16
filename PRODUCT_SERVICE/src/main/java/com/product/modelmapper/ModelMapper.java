@@ -30,9 +30,16 @@ public class ModelMapper {
 	}
 
 	public User addUserDtoToUserEntity(AddUserDto dto) {
-		User user = User.builder().name(dto.getName()).email(dto.getEmail())
-				.password(passwordEncoder.encode(dto.getPassword())).role(dto.getRole()).createdAt(LocalDateTime.now())
-				.updatedAt(LocalDateTime.now()).build();
-		return user;
+
+	    User user = User.builder()
+	            .name(dto.getName())
+	            .email(dto.getEmail())
+	            .password(passwordEncoder.encode(dto.getPassword()))
+	            .role("USER")
+	            .createdAt(LocalDateTime.now())
+	            .updatedAt(LocalDateTime.now())
+	            .build();
+
+	    return user;
 	}
 }

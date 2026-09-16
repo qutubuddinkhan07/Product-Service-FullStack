@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +40,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	@Cacheable(value = "product", key = "#id")
+	// @Cacheable(value = "product", key = "#id")
+	@CacheEvict(value = "product", key = "#id")
 	public Product getProductByIdService(Long id) {
 		Optional<Product> optProduct = productRepo.findById(id);
 		if (optProduct.isEmpty()) {
