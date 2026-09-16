@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/Register";
+import PageNotFound from "./components/PageNotFound";
 
 // Protected Route
 const ProtectedRoute = ({ children }) => {
@@ -45,6 +46,10 @@ const route = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 
